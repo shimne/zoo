@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link rel="stylesheet" type="text/css" href="/zoopu/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/zoopu/js/zTree/zTreeStyle/zTreeStyle.css" />
+<script type="text/javascript" src="/zoopu/js/ueditor/third-party/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/zoopu/js/zTree/jquery.ztree.all.js"></script>
+<script type="text/javascript">
+var setting =
+{
+	data:
+	{
+		simpleData:
+		{
+			enable: true
+		}
+	},
+	callback: 
+	{
+		onClick: onClick
+	}
+};
+
+var zNodes = $!{map.data};
+var id = $!{map.id};
+
+$(function(){
+	$.fn.zTree.init($('#albumTree'), setting, zNodes);
+
+	var treeObj = $.fn.zTree.getZTreeObj('albumTree');
+	var treeNode =  treeObj.getNodeByParam('id', id, null);
+	openNote(treeObj, treeNode);
+});
+
+function openNote(treeObj, treeNode)
+{
+	if (treeNode)
+	{
+		treeObj.expandNode(treeNode, true, false, false, false);
+		openNote(treeObj, treeNode.getParentNode());
+	}
+}
+
+function onClick(event, treeId, treeNode, clickFlag)
+{
+	window.parent.content.location.href = '/zu/album/edit.do?id=' + treeNode.id + '&parentId=' + treeNode.pId;
+}
+</script>
+</head>
+<body class="bgleft" style="overflow:hidden;height:100%;">
+<table width="150" border="0" cellspacing="0" cellpadding="0" height="32">
+	<tr>
+		<td height="32" background="/zoopu/images/lbg3.jpg" class="ltitle" style="padding-left:18px;"> <img src="/zoopu/images/7.gif" width="16" height="16" align="absbottom" class="mr5">相册管理 </td>
+	</tr>
+</table>
+<div id="divmenu" style="width:150px;overflow-x:hidden;overflow:auto;">
+	<div >
+		<ul id="albumTree" class="ztree"></ul>
+	</div>
+</div>
+</body>
+</html>

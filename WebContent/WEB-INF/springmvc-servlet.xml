@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:p="http://www.springframework.org/schema/p"  
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		 http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/jdbc 
+         http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+         http://www.springframework.org/schema/task   
+    	 http://www.springframework.org/schema/task/spring-task-3.0.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+ 	<mvc:resources mapping="/zoopu/imgages/**" location="/zoopu/imgages/"/>
+	<mvc:resources mapping="/zoopu/js/**" location="/zoopu/js/"/>
+	<mvc:resources mapping="/zoopu/css/**" location="/zoopu/css/"/>
+
+	<context:component-scan base-package="com.shimne.zoopu">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" /> 
+	</context:component-scan>
+
+	<mvc:annotation-driven />
+
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="configLocation" value="/WEB-INF/classes/velocity.properties" />
+		<property name="resourceLoaderPath">
+			<value>/WEB-INF/zoopu/</value>
+		</property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">gbk</prop>
+				<prop key="output.encoding">gbk</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="suffix" value=".vm" />
+		<property name="contentType" value="text/html;charset=gbk" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/classes/toolbox.xml"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityToolboxView"/>
+	</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="52428800"/>     
+    </bean>
+
+	<mvc:interceptors >
+		<mvc:interceptor>
+	        <mvc:mapping path="/zu/*/*" />
+	        <mvc:mapping path="/zu/*/*/*" />
+	        <bean class="com.shimne.zoopu.util.interceptors.AdminAuthInterceptor" />  
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.album.dao.PhotoDao">
+
+	<insert id="save" parameterType="Photo">
+		INSERT INTO ZOOPU_PHOTO
+		(
+			id, albumId, title, text, photoUrl, targetUrl, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{albumId}, #{title}, #{text}, #{photoUrl}, #{targetUrl}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_PHOTO LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Photo">
+		UPDATE ZOOPU_PHOTO 
+		SET
+			title = #{title},
+			text = #{text},
+			photoUrl = #{photoUrl},
+			targetUrl = #{targetUrl},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultType="Photo">
+		SELECT * FROM ZOOPU_PHOTO WHERE id = #{value}
+	</select>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_PHOTO WHERE id = #{value}
+	</delete>
+
+	<select id="countByAlbumId" parameterType="long" resultType="Integer">
+		SELECT COUNT(1) FROM ZOOPU_PHOTO WHERE albumId = #{value}
+	</select>
+
+	<select id="queryByAlbumId" parameterType="long" resultType="Photo">
+		SELECT * FROM ZOOPU_PHOTO WHERE albumId = #{value} ORDER BY id asc
+	</select>
+</mapper>

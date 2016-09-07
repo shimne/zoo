@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div style="overflow:auto" id="main">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="98%"><img src="/zoopu/images/spacer.gif" width="1" height="5"></td>
+		</tr>
+	</table>
+	<br>
+	<table width="98%" border="3" align="center" cellpadding="20" cellspacing="0" bordercolor="#DEEFFA" bordercolordark="#FFFFFF" frame="hsides" rules="rows">
+		<tr>
+			<td width="100%" height="100" align="center" bgcolor="#F1F8FE"> <strong class="blue t14">${map.message}</strong> <br>
+					<script>
+						var time= 2;						
+						var sTarget = '${map.target}';
+						var timer =	setInterval(function(){
+							if (time > 0)
+							{
+								document.getElementById("timeGap").innerHTML = '<font color="red">'+time+'</font>' ;														
+							}
+							else 
+							{
+								if(sTarget == '_parent')
+								{
+									parent.location.href='${map.refererURL}';
+									clearInterval(timer);
+								}
+								else
+								{
+									location.href='${map.refererURL}';
+									clearInterval(timer);
+								}
+							}
+							time--;
+						}, 1000);
+					</script>
+					<br>
+						
+				<span id="timeGap"><font color="red">2</font></span>秒后返回 ， 如果没有浏览器自动跳转，请点此<a href="${refererURL}" #if(${map.target} == '_parent') target="_parent" #end>&nbsp;<font color=red>返回</font></a>。 <br><br><br>
+			</td>
+		</tr>
+	</table>
+	<br>	
+</div>
+</body>
+</html>

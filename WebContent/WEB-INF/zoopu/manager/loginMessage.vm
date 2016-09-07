@@ -1,0 +1,12 @@
+<script type="text/javascript">
+	var loginMessage = '$!loginMessage';
+
+	if (loginMessage == null || loginMessage == '')
+	{
+		top.location.href = '/zu/desktop.do';
+	}
+	else
+	{
+		top.loginError(loginMessage);
+	}
+</script>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.admin.dao.DepartmentDao">
+
+	<insert id="save" parameterType="Department">
+		INSERT INTO ZOOPU_DEPARTMENT
+		(
+			id, parentId, name, description, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{parentId}, #{name}, #{description}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_DEPARTMENT LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Department">
+		UPDATE ZOOPU_DEPARTMENT 
+		SET
+			parentId = #{parentId},
+			name = #{name},
+			description = #{description},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultType="Department">
+		SELECT * FROM ZOOPU_DEPARTMENT WHERE id = #{value}
+	</select>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_DEPARTMENT WHERE id = #{value}
+	</delete>
+
+	<select id="queryByParentId" parameterType="long" resultType="Department">
+		SELECT * FROM ZOOPU_DEPARTMENT WHERE parentId = #{value} ORDER BY id ASC
+	</select>
+
+	<select id="queryAll" resultType="Department">
+		SELECT * FROM ZOOPU_DEPARTMENT ORDER BY id ASC
+	</select>
+</mapper>

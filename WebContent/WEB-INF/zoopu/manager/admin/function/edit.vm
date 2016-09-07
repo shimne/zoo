@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>修改权限</title>
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/common.js"></script>
+<script type="text/javascript" src="/zoopu/js/ueditor/third-party/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/zoopu/js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript">
+$(function(){
+	var valid = $('#edtForm').Validform({
+		tiptype : 3,
+		postonce : true
+	});
+
+	valid.addRule([
+		{
+		    ele : '#name',
+		    datatype : '*',
+		    nullmsg : '请输入权限名称！',
+		    errormsg : '权限名称不能为空！'
+		},
+		{
+			ele : '#urls',
+			datatype : '/^.{0,2000}$/',
+			nullmsg : '请输入权限路径！',
+			errormsg : '权限路径可为空，长度在2000字符以内！'
+		},
+		{
+			ele : '#description',
+			datatype : '/^.{0,100}$/',
+			nullmsg : '请输入权限描述！',
+			errormsg : '权限描述可为空，长度在100字符以内！'
+		}
+	]);
+
+	$('#child').click(function(){
+		location.href = '/zu/function/add.do?id=$!{function.id}';
+	})
+
+	$('#delete').click(function(){
+		if(confirm('确定删除吗 ？'))
+		{
+			location.href = '/zu/function/delete.do?id=$!{function.id}&parentId=$!{function.parentId}';
+		}
+	})
+})
+</script>
+</head>
+<body class="mtbg">
+<form id="edtForm" name="form1" method="post" action="/zu/function/update.do">
+	<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0" background="/zoopu/images/matbg.jpg" class="mb5">
+		<tr>
+			<td width="92%">&nbsp;<a href="#"></a>&nbsp;<img src="/zoopu/images/9.gif" width="14" height="14" align="absmiddle" class="mr5"><strong>编辑权限</strong></td>
+			<td width="8%" align="right">&nbsp;</td>
+		</tr>
+	</table>
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tableAdd borTop">
+      	<tr>
+        	<th width="120" height="30" nowrap>权限名称<span style="color:#FF0000">*</span></th>
+        	<td class="pl5">
+				<input type="hidden" name="id" value="$!{function.id}"/>
+				<input type="hidden" name="parentId" value="$!{function.parentId}"/>
+				<input type="text" id="name" name="name" value="$!{function.name}"/>
+			</td>
+      	</tr>
+		<tr>
+        	<th width="120" height="30" nowrap>权限路径</th>
+        	<td class="pl5">
+				<textarea id="urls" name="urls" cols="50" rows="5">$!{function.urls}</textarea>
+			</td>
+      	</tr>
+		<tr>
+        	<th width="120" height="30" nowrap>权限描述</th>
+        	<td class="pl5">
+				<textarea id="description" name="description" cols="50" rows="5">$!{function.description}</textarea>
+			</td>
+      	</tr>
+      	<tr>
+        	<th height="30">创建人</th>
+        	<td class="pl5">
+				$!function.creatorId
+			</td>
+      	</tr>
+		<tr>
+        	<th height="30">创建时间</th>
+        	<td class="pl5">
+				$!function.createTime1
+			</td>
+      	</tr>
+      	<tr>
+        	<th height="35">&nbsp;</th>
+        	<td class="pl5">
+        		<input type="submit" class="buttonBg" id="save" value="修改"/>
+            	<input type="button" class="buttonBg" id="child" value="新增子分类"/>
+				<input type="button" class="buttonBg" id="delete" value="删除">
+            	<input type="button" class="buttonBg"  value="返回" onclick="history.back();return false;"/>         
+            </td>
+      	</tr>
+    </table>
+</form>
+</body>
+</html>

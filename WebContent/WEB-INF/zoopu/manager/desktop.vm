@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>后台管理</title>
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/common.js"></script>
+<script type="text/javascript" src="/zoopu/js/ueditor/third-party/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	var iniHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
+	var iniWidth = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
+
+	document.getElementById("menu").style.height = (iniHeight - 70) + 'px';
+	document.getElementById("main").style.width = (iniWidth - 150) + 'px';
+	document.getElementById("main").style.height = iniHeight + 'px';
+
+	$('#menuHead').on('click', 'td[name=menus]', function(){
+		$('td[name=menus]').addClass('boff').removeClass('bon');
+		$(this).addClass('bon').removeClass('boff');
+		$('#menuFrame').attr('src', $(this).attr('src'));
+		$('#mainFrame').attr('src', '/zu/main.do');
+	})
+})
+</script>
+</head>
+<body style="overflow:hidden;" scroll="no">
+<table width="100%" height="100%" cellpadding="0" cellspacing="0" style="height:100%">
+	<tr>
+		<td colspan="2" width="100%" height="70">
+			<table width="100%" height="70" border="0" cellpadding="0" cellspacing="0" class="bgtop">
+				<tr>
+					<td width="150" height="70" valign="top"><img src="/zoopu/images/logo.jpg" width="150" height="70" border="0" /></td>
+					<td valign="bottom" nowrap>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td height="25" align="right" nowrap="nowrap"><img src="/zoopu/images/loading_16x16.gif" name="loading" width="16" height="16" align="absmiddle" id="loading" />&nbsp;&nbsp;<img src="/zoopu/images/1.gif" width="16" height="16" align="absmiddle" class="mr5" />欢迎您，<strong><font color="#1D83B0">$!adminContext.name</font></strong> | <a href="#">网站首页</a> | <a href="/logout.do">退出登录</a> </td>
+							</tr>
+						</table>
+						<table width="504" height="34" border="0" cellpadding="0" cellspacing="0">
+							<tr id="menuHead">
+								<td width="80" class="bon" name="menus" src="/zu/admin/left.do">系统管理</td>
+                                <td width="4"></td>
+								<td width="80" class="boff" name="menus" src="/zu/admin/left.do">系统管理</td>
+                                <td width="4"></td>
+								<td width="80" class="boff" name="menus" src="/zu/user/left.do">用户管理</td>
+                                <td width="4"></td>
+								<td width="80" class="boff" name="menus" src="/zu/article/left.do">文章管理</td>
+                                <td width="4"></td>
+								<td width="80" class="boff" name="menus" src="/zu/photo/left.do">图片管理</td>
+                                <td width="4"></td>
+								<td width="80" class="boff" name="menus" src="/zu/admin/left.do">系统管理</td>
+                                <td width="4"></td>
+							</tr>
+					  </table>					
+					</td>
+			    </tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="150" valign="top" bgcolor="#ECF9FF" class="bgleft" id="menu">
+			<iframe id="menuFrame" name="menuFrame" width="150" src="/zu/admin/left.do" scrolling="auto" frameborder="0"></iframe>
+		</td>
+		<td valign="top" id="main">
+    		<script type="text/javascript">
+    			var ie = navigator.appVersion.indexOf('MSIE') != -1;
+    			if (ie)
+    			{
+    				document.write('<iframe src="/zu/main.do" id="mainFrame" name="mainFrame" frameborder="0" scrolling="yes" width="100%" height="100%"></iframe>');
+    			}
+    			else
+    			{
+    				document.write('<iframe src="/zu/main.do" id="mainFrame" name="mainFrame" frameborder="0" scrolling="auto" width="100%" height="100%"></iframe>');
+    			}
+    		</script>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

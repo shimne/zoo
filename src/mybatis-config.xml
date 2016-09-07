@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC  "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.shimne.zoopu.admin.entity.Admin" alias="Admin" />
+		<typeAlias type="com.shimne.zoopu.admin.entity.Department" alias="Department" />
+		<typeAlias type="com.shimne.zoopu.admin.entity.Function" alias="Function" />
+		<typeAlias type="com.shimne.zoopu.admin.entity.CustomPage" alias="CustomPage" />
+		<typeAlias type="com.shimne.zoopu.user.entity.User" alias="User" />
+		<typeAlias type="com.shimne.zoopu.article.entity.Article" alias="Article" />
+		<typeAlias type="com.shimne.zoopu.article.entity.Channel" alias="Channel" />
+		<typeAlias type="com.shimne.zoopu.album.entity.Album" alias="Album" />
+		<typeAlias type="com.shimne.zoopu.album.entity.Photo" alias="Photo" />
+		<typeAlias type="com.shimne.zoopu.family.entity.Family" alias="Family" />
+		<typeAlias type="com.shimne.zoopu.family.entity.Member" alias="Member" />
+		<typeAlias type="com.shimne.zoopu.bbs.entity.Board" alias="Board" />
+		<typeAlias type="com.shimne.zoopu.bbs.entity.Reply" alias="Reply" />
+		<typeAlias type="com.shimne.zoopu.bbs.entity.Topic" alias="Topic" />
+		<typeAlias type="com.shimne.zoopu.bbs.entity.UserBbs" alias="UserBbs" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="com/shimne/zoopu/admin/dao/sqlmap/Admin.xml" />
+		<mapper resource="com/shimne/zoopu/admin/dao/sqlmap/Department.xml" />
+		<mapper resource="com/shimne/zoopu/admin/dao/sqlmap/Function.xml" />
+		<mapper resource="com/shimne/zoopu/admin/dao/sqlmap/CustomPage.xml" />
+		<mapper resource="com/shimne/zoopu/user/dao/sqlmap/User.xml" />
+		<mapper resource="com/shimne/zoopu/article/dao/sqlmap/Article.xml" />
+		<mapper resource="com/shimne/zoopu/article/dao/sqlmap/Channel.xml" />
+		<mapper resource="com/shimne/zoopu/album/dao/sqlmap/Album.xml" />
+		<mapper resource="com/shimne/zoopu/album/dao/sqlmap/Photo.xml" />
+		<mapper resource="com/shimne/zoopu/family/dao/sqlmap/Family.xml" />
+		<mapper resource="com/shimne/zoopu/family/dao/sqlmap/Member.xml" />
+		<mapper resource="com/shimne/zoopu/bbs/dao/sqlmap/Board.xml" />
+		<mapper resource="com/shimne/zoopu/bbs/dao/sqlmap/Reply.xml" />
+		<mapper resource="com/shimne/zoopu/bbs/dao/sqlmap/Topic.xml" />
+		<mapper resource="com/shimne/zoopu/bbs/dao/sqlmap/UserBbs.xml" />
+	</mappers>
+
+</configuration>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/common.js"></script>
+</head>
+<body class="mlbg">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" background="/zoopu/images/mtbg.jpg">
+	<tr>
+		<td width="92%">
+			<img src="/zoopu/images/8.gif" width="12" height="12" align="absmiddle" class="mr5" />
+			<strong>自定义页面列表</strong>
+		</td>
+		<td width="8%" align="right">
+			<img src="/zoopu/images/mtr.jpg" width="97" height="32" />
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="mb5">
+	<tr>
+		<td width="100%">&nbsp;</td>
+		<td width="100%" colspan="2">
+			<form name="form1" method="post" action="/zu/custom/list.do">
+				<table border="0" align="right" cellpadding="0" cellspacing="5">
+					<tr>
+						<td align="right" nowrap="nowrap">
+							标题：<input type="text" name="name" value="$!map.name"/>
+                        </td>
+						<td>
+							<input type="submit" class="buttonBg" value="查询"/>
+						</td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tableList">
+    <tr>
+        <th width="50" height="26" align="center">
+            <strong>编号</strong>
+        </th>
+        <th width="100" align="left">
+            <strong>页面名称</strong>
+        </th>
+        <th align="left">
+            <strong>页面标题</strong>
+        </th>
+        <th width="120" align="center">
+            <strong>创建时间</strong>
+        </th>
+        <th width="130" align="left">
+            <strong style="padding-left:26px;">操作</strong>
+        </th>
+    </tr>
+    #foreach(${customPage} in ${map.datas})
+	<tr onMouseOver="this.style.backgroundColor='#ECF9FF'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+		<td height="30" align="center">$!{customPage.id}</td>
+		<td>&nbsp;$!{customPage.name}</td>
+		<td>&nbsp;$!{customPage.title}</td>
+		<td>&nbsp;$!{customPage.createTime1}</td>
+		<td>
+			<a href="/zu/custom/edit.do?id=$!{customPage.id}">编辑</a>
+			<a href="/zu/custom/delete.do?id=$!{customPage.id}"><span class="red" onclick="return confirm('确认删除自定义页面：<$!{customPage.name}>？')">删除</span></a>
+		</td>
+	</tr>
+    #end
+</table>
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" class="ml3">
+    <tr>
+		<td>
+			<input type="button" class="buttonBg" onclick="window.location.href='/zu/custom/add.do'" value="新增页面"/>
+		</td>
+        <td align="right" nowrap> $!{map.pageContents}&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

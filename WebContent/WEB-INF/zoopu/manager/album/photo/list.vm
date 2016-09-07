@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/common.js"></script>
+<script type="text/javascript" src="/zoopu/js/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body class="mlbg">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" background="/zoopu/images/mtbg.jpg">
+	<tr>
+		<td width="92%">
+			<img src="/zoopu/images/8.gif" width="12" height="12" align="absmiddle" class="mr5" />
+			<strong>图片列表</strong>
+		</td>
+		<td width="8%" align="right">
+			<img src="/zoopu/images/mtr.jpg" width="97" height="32" />
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tableList">
+    <tr>
+        <th width="50" height="26" align="center">
+            <strong>编号</strong>
+        </th>
+        <th width="150" align="center">
+            <strong>缩略图</strong>
+        </th>
+		<th align="center">
+            <strong>图片标题</strong>
+        </th>
+        <th width="140" align="center">
+			<strong>上传时间</strong>
+		</th>
+		<th width="120" align="center">
+			<strong>操作</strong>
+		</th>
+    </tr>
+    #foreach(${photo} in ${map.photos})
+	<tr onMouseOver="this.style.backgroundColor='#ECF9FF'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+		<td align="center">$!{photo.id}</td>
+		<td>
+			<a href="$!{photo.photoUrl}.jpg" class="photo">
+				<img #if(!$!photo.photoUrl || $!photo.photoUrl == "") src="http://pics.mysteelcms.com/member/skin/images/nopic.gif" #else src="$!{photo.photoUrl}_W120.jpg" #end alt="" width="120" height="100" border="0">
+			</a>
+		</td>
+		<td>&nbsp;$!{photo.title}</td>
+		<td>&nbsp;$!{photo.createTime1}</td>
+		<td>
+			<a href="/zu/photo/edit.do?id=$!{photo.id}&albumId=$!{photo.albumId}">编辑</a>
+			<a href="/zu/photo/cover.do?id=$!{photo.id}&albumId=$!{photo.albumId}">设置封面</a>
+			<a href="/zu/photo/delete.do?id=$!{photo.id}&albumId=$!{photo.albumId}"><span class="red" onclick="return confirm('确认删除文章：<$!{photo.title}>？')">删除</span></a>
+		</td>
+	</tr>
+    #end
+</table>
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" class="ml3">
+    <tr>
+		<td>
+			<input type="button" class="buttonBg" onclick="window.location.href='/zu/photo/add.do?albumId=$map.albumId'" value="新增图片"/>
+		</td>
+    </tr>
+</table>
+</body>
+</html>

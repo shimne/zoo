@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/common.js"></script>
+<script type="text/javascript" src="/zoopu/js/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body class="mlbg">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" background="/zoopu/images/mtbg.jpg">
+	<tr>
+		<td width="92%">
+			<img src="/zoopu/images/8.gif" width="12" height="12" align="absmiddle" class="mr5" />
+			<strong>文章列表</strong>
+		</td>
+		<td width="8%" align="right">
+			<img src="/zoopu/images/mtr.jpg" width="97" height="32" />
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="mb5">
+	<tr>
+		<td width="100%">&nbsp;</td>
+		<td width="100%" colspan="2">
+			<form name="form1" method="post" action="/zu/article/list.do">
+				<table border="0" align="right" cellpadding="0" cellspacing="5">
+					<tr>
+						<td align="right" nowrap="nowrap">
+							开始日期：<input type="text" id="startTime" name="startTime" class="Wdate" onClick="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'endTime\')}'})" value="$!map.startTime"/>
+						</td>
+						<td align="right" nowrap="nowrap">
+							结束日期：<input type="text" id="endTime" name="endTime" class="Wdate" onClick="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'startTime\')}'})" value="$!map.endTime"/>
+						</td>
+						<td nowrap="nowrap">
+							状态：
+							<select name="status">
+								<option value="0">全部</option>
+								<option value="1" #if($!{map.status} == 1) selected="selected" #end>保存</option>
+								<option value="2" #if($!{map.status} == 2) selected="selected" #end>发布</option>
+                            </select>
+						</td>
+						<td align="right" nowrap="nowrap">
+							标题：<input type="text" name="title" value="$!map.title"/>
+                        </td>
+						<td>
+							<input type="submit" class="buttonBg" value="查询"/>
+						</td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tableList">
+    <tr>
+		<th width="40" align="center">
+			<input type="checkbox" onclick="checkAll(this);"/>
+		</th>
+        <th width="50" height="26" align="center">
+            <strong>编号</strong>
+        </th>
+        <th align="left">
+            <strong>文章标题</strong>
+        </th>
+        <th width="100" align="left">
+            <strong>来源</strong>
+        </th>
+        <th width="120" align="center">
+            <strong>创建时间</strong>
+        </th>
+        <th width="120" align="center">
+            <strong>发布时间</strong>
+        </th>
+        <th width="120" align="center">
+            <strong>显示时间</strong>
+        </th>
+        <th width="60" align="left">
+            <strong>作者</strong>
+        </th>
+		<th width="40" align="center">
+            <strong>置顶</strong>
+        </th>
+        <th width="40" align="center">
+            <strong>状态</strong>
+        </th>
+        <th width="130" align="left">
+            <strong style="padding-left:26px;">操作</strong>
+        </th>
+    </tr>
+    #foreach(${article} in ${map.articles})
+	<tr onMouseOver="this.style.backgroundColor='#ECF9FF'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+		<td height="30" align="center">
+			<input type="checkbox" name="ids" value="$!{article.id}"/>
+		</td>
+		<td align="center">$!{article.id}</td>
+		<td>&nbsp;$!{article.title}</td>
+		<td>&nbsp;$!{article.soucre}</td>
+		<td>&nbsp;$!{article.createTime1}</td>
+		<td>&nbsp;$!{article.publishTime1}</td>
+		<td>&nbsp;$!{article.articleTime}</td>
+		<td>&nbsp;$!{admin.author}</td>
+		<td>&nbsp;#if($!{article.top}) <span class="lightGreen">是</span> #else 否 #end</td>
+        <td>&nbsp;#if($!{article.status} == 1) 保存 #else <span class="lightGreen">发布</span> #end</td>
+		<td>
+			<a href="/zu/article/edit.do?id=$!{article.id}&channelId=$!{article.channelId}">编辑</a>
+			<a href="/zu/article/top.do?id=$!{article.id}&channelId=$!{article.channelId}">#if(!${article.top}) <span class="lightGreen">置顶</span> #else 取消置顶 #end</a>
+			#if($!{article.status} == 2)
+				<a href="/zu/article/updatestatus.do?ids=$!{article.id}&channelId=$!{article.channelId}&status=1">撤销</a>
+			#else
+				<a href="/zu/article/updatestatus.do?ids=$!{article.id}&channelId=$!{article.channelId}&status=2">发布</a>
+			#end
+			<a href="/zu/article/delete.do?ids=$!{article.id}&channelId=$!{article.channelId}&status=0"><span class="red" onclick="return confirm('确认删除文章：<$!{article.title}>？')">删除</span></a>
+		</td>
+	</tr>
+    #end
+</table>
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" class="ml3">
+    <tr>
+		<td>
+			<input type="button" class="buttonBg" onclick="window.location.href='/zu/article/add.do?channelId=$map.channelId'" value="新增文章"/>
+			<input type="button" class="buttonBg" onclick="optionAll('确认发布文章？', 'ids', '/zu/article/status.do?status=2&channelId=$map.channelId&ids=')" value="发布"/>
+			<input type="button" class="buttonBg" onclick="optionAll('确认撤销文章？', 'ids', '/zu/article/status.do?status=1&channelId=$map.channelId&ids=')" value="撤销"/>
+			<input type="button" class="buttonBg" onclick="optionAll('确认删除文章？', 'ids', '/zu/article/status.do?status=0&channelId=$map.channelId&ids=')" value="删除"/>
+		</td>
+        <td align="right" nowrap> $!{map.pageContents}&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.admin.dao.CustomPageDao">
+
+	<insert id="save" parameterType="CustomPage">
+		INSERT INTO ZOOPU_CUSTOMPAGE
+		(
+			id, name, title, keywords, description, content, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{name}, #{title}, #{keywords}, #{description}, #{content}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_CUSTOMPAGE LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="CustomPage">
+		UPDATE ZOOPU_CUSTOMPAGE 
+		SET
+			name = #{name},
+			title = #{title},
+			keywords = #{keywords},
+			description = #{description},
+			content = #{content},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultType="CustomPage">
+		SELECT * FROM ZOOPU_CUSTOMPAGE WHERE id = #{value}
+	</select>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_CUSTOMPAGE WHERE id = #{value}
+	</delete>
+
+	<select id="count" parameterType="map" resultType="Integer">
+		SELECT COUNT(1) FROM ZOOPU_CUSTOMPAGE 
+		<where>
+			<if test="name != null and name != ''">
+				AND name LIKE #{name}
+			</if>
+		</where>
+	</select>
+
+	<select id="query" parameterType="map" resultType="CustomPage">
+		SELECT * FROM ZOOPU_CUSTOMPAGE
+		<where>
+			<if test="name != null and name != ''">
+				AND name LIKE #{name}
+			</if>
+		</where>
+		ORDER BY id ASC 
+		<if test="max != null and max > 0">
+			LIMIT #{start}, #{max}
+		</if>
+	</select>
+</mapper>

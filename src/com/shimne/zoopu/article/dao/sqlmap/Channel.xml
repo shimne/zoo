@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.article.dao.ChannelDao">
+
+	<insert id="save" parameterType="Channel">
+		INSERT INTO ZOOPU_CHANNEL
+		(
+			id, parentId, name, description, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{parentId}, #{name}, #{description}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_CHANNEL LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Channel">
+		UPDATE ZOOPU_CHANNEL 
+		SET
+			parentId = #{parentId},
+			description = #{description},
+			name = #{name},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_CHANNEL WHERE id = #{value}   
+	</delete>
+
+	<select id="findById" parameterType="long" resultType="Channel">
+		SELECT * FROM ZOOPU_CHANNEL WHERE id = #{value}
+	</select>
+
+	<select id="queryByParentId" parameterType="long" resultType="Channel">
+		SELECT * FROM ZOOPU_CHANNEL WHERE parentId = #{value} ORDER BY id ASC
+	</select>
+
+	<select id="queryAll" resultType="Channel">
+		SELECT * FROM ZOOPU_CHANNEL ORDER BY id ASC
+	</select>
+
+</mapper>

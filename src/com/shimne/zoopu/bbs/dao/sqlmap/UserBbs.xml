@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.bbs.dao.UserBbsDao">
+
+	<insert id="save" parameterType="UserBbs">
+		INSERT INTO ZOOPU_USERBBS
+		(
+			userId, sign, topicNum, replyNum, score, level
+		)
+		VALUES
+		(
+			#{userId}, #{sign}, #{topicNum}, #{replyNum}, #{score}, #{level}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_USERBBS LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="UserBbs">
+		UPDATE ZOOPU_USERBBS 
+		SET
+			sign = #{sign},
+			topicNum = #{topicNum},
+			replyNum = #{replyNum},
+			score = #{score},
+			level = #{level}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findByUserId" parameterType="long" resultType="UserBbs">
+		SELECT * FROM ZOOPU_USERBBS WHERE id = #{value}
+	</select>
+</mapper>

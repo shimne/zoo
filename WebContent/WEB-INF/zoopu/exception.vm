@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/mootools.js"></script>
+</head>
+<body>
+<div id="pageTopBar" style="display:none;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="titleBar">
+	<tr>
+		<td width="5"></td>
+		<td height="34">&nbsp;<strong class="mTitle">信息提示</strong></td>
+		<td width="300" align="right">&nbsp;</td>
+		<td width="15">&nbsp;</td>
+	</tr>
+</table>
+</div>
+<div style="overflow:auto" id="main">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="98%"><img src="/zoopu/images/spacer.gif" width="1" height="5"></td>
+		</tr>
+	</table>
+	<br>
+	<table width="98%" border="3" align="center" cellpadding="20" cellspacing="0" bordercolor="#DEEFFA" bordercolordark="#FFFFFF" frame="hsides" rules="rows">
+		<tr>
+			<td width="100%" height="100" align="center" bgcolor="#F1F8FE">
+				<strong class="t14 red">
+					#if($message)
+						$!{message}
+					#else
+						$!{exceptionTool.getMessage($!{exception})}
+					#end
+				</strong>
+				<br>
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="100" align="center" bgcolor="#F1F8FE">
+				<a href="javascript:void(0);" class="blue"  onclick="history.go(-1)">请点此返回</a>
+			</td>
+		</tr>
+	</table>
+</div>
+<script type="text/javascript">
+document.getElementById("main").style.height=(document.body.clientHeight-34)+"px";
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>后台管理登录</title>
+<script type="text/javascript">
+if (window.top && window.top != window)
+{
+	top.location.href = '/zu/login.do';
+}
+
+document.onkeypress = keypress;
+
+function login()
+{
+	var username = document.getElementById('username');
+	var password = document.getElementById('password');
+
+	if (username.value == '' || password.value == '')
+	{
+		loginMessage.innerHTML = '请输入用户名和密码！';
+		username.focus();
+		return false;
+	}
+
+	return true;
+}
+
+function keypress(e)
+{
+	var currKey = 0, e = e || event;
+  	if(e.keyCode == 13)
+  	{
+  	   login();
+  	}
+}
+
+function doReset()
+{
+	document.getElementById('username').value = '';
+	document.getElementById('password').value = '';
+}
+
+function loginError(msg)
+{
+	document.getElementById('username').value = '';
+	document.getElementById('password').value = '';
+	document.getElementById('loginMessage').innerHTML = msg;
+}
+</script>
+<style type="text/css">
+body,td,th {font-size: 12px; font-family:"宋体";}
+body { background:url(/zoopu/images/loginbg.png) repeat-x #FFFFFF;}
+form { margin:0;}
+ul,li { margin:0; padding:0; list-style:none;}
+a { color: #3a689e; text-decoration: none;}
+a:hover {text-decoration:underline; color: #FF0000;}
+#desc{position:absolute;top:130px;left:50%; margin:0 0 0 -358px; width:677px;height:355px; border:0;}
+.eFont { font-family:verdana;}
+</style>
+</head>
+<body>
+<div id="desc">
+<table width="677" height="355" border="0" align="center" cellpadding="0" cellspacing="0" background="/zoopu/images/login.png">
+	<tr>
+		<td width="637" valign="top">
+        <form id="frmLogin" name="frmLogin" method="post" action="/zu/login.do" onsubmit="return login();" target="loginFrame">
+			<table width="341" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td height="85">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="50" height="27">&nbsp;</td>
+					<td width="51" nowrap="nowrap">用户名：</td>
+					<td colspan="2">
+						<input name="username"  class="text" type="text" maxlength="20" id="username" size="15" value=""/>
+					</td>
+				</tr>
+				<tr>
+					<td height="27">&nbsp;</td>
+					<td>密　码：</td>
+					<td colspan="2">
+						<input name="password" class="text" type="password" maxlength="20" id="password"  size="15" />
+					</td>
+				</tr>
+				<tr>
+					<td height="17">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td height="30">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colspan="2"><input type="image" src="/zoopu/images/submit.png"/>　
+						<a href="javascript:;" onclick="doReset();"><img alt="" src="/zoopu/images/reset.png" width="64" height="24" border="0" /></a>
+					</td>
+				</tr>
+				<tr>
+					<td height="27">&nbsp;</td>
+					<td></td>
+					<td width="58"></td>
+					<td width="182"></td>
+				</tr>
+				<tr>
+					<td height="25">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td height="20" colspan="2"><font color="#FF0000" id="loginMessage"></font></td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td height="60" align="center">&nbsp;</td>
+				</tr>
+				<tr>
+					<td height="25" align="center" class="eFont">&copy; 2016 <a href="#" target="_blank">zoopu</a>. All Rights Reserved.</td>
+				</tr>
+				<tr>
+					<td height="25" align="center" class="eFont">shimne</td>
+				</tr>
+			</table>
+		</form>
+		</td>
+	</tr>
+</table>
+</div>
+<iframe name="loginFrame" style="display:none" ></iframe>
+<script type="text/javascript">
+if (window.top && window.top != window)
+{
+	top.location.href = '/';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.album.dao.AlbumDao">
+
+	<insert id="save" parameterType="Album">
+		INSERT INTO ZOOPU_ALBUM
+		(
+			id, parentId, name, cover, description, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{parentId}, #{name}, #{cover}, #{description}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_ALBUM LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Album">
+		UPDATE ZOOPU_ALBUM 
+		SET
+			parentId = #{parentId},
+			name = #{name},
+			cover = #{cover},
+			description = #{description},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_ALBUM WHERE id = #{value}   
+	</delete>
+
+	<select id="findById" parameterType="long" resultType="Album">
+		SELECT * FROM ZOOPU_ALBUM WHERE id = #{value}
+	</select>
+
+	<select id="queryByParentId" parameterType="long" resultType="Album">
+		SELECT * FROM ZOOPU_ALBUM WHERE parentId = #{value} ORDER BY id ASC
+	</select>
+
+	<select id="queryAll" resultType="Album">
+		SELECT * FROM ZOOPU_ALBUM ORDER BY id ASC
+	</select>
+</mapper>

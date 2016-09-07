@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link rel="stylesheet" type="text/css" href="/zoopu/css/common.css" />
+<script type="text/javascript" src="/zoopu/js/ueditor/third-party/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#divmenu').on('click', 'a', function(){
+		var mainFrameURL = parent.mainFrame.location.href;
+		var url = $(this).attr('href');
+		if (mainFrameURL.substring(mainFrameURL.length - url.length) != url)
+		{
+    		parent.mainFrame.location.href = $(this).attr('href');
+    
+    		$('.simpleLeftMenu a').removeClass('current');
+			$(this).addClass('current');
+		}
+
+		return false;
+	})
+})
+</script>
+</head>
+<body class="bgleft" style="overflow:hidden;">
+<table width="149" border="0" cellspacing="0" cellpadding="0" height="32">
+	<tr>
+		<td height="32" background="/zoopu/images/lbg3.jpg" class="ltitle" style="padding-left:18px;"> <img src="/zoopu/images/7.gif" width="16" height="16" align="absbottom" class="mr5">系统管理 </td>
+	</tr>
+</table>
+<div id="divmenu" style="width:150px;overflow-x:hidden;overflow:auto;">
+	<div class="simpleLeftMenu">
+		<a href="/zu/album/index.do"><span>相册管理</span></a>
+		<a href="/zu/photo/index.do"><span>图片管理</span></a>
+	</div>
+</div>
+</body>
+</html>

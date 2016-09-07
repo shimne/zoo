@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>相册管理</title>
+<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/zoopu/js/common.js"></script>
+<script type="text/javascript">
+window.onload = function()
+{
+	var iniHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
+	var iniWidth = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
+
+	document.getElementById("menu").style.height = (iniHeight - 70) + 'px';
+	document.getElementById("main").style.width = (iniWidth - 150) + 'px';
+	document.getElementById("main").style.height = (iniHeight - 70) + 'px';
+}
+</script>
+</head>
+<body style="overflow:hidden;height:100%;" scroll="no">
+<table width="100%" height="100%" cellpadding="0" cellspacing="0" style="height:100%">
+	<tr>
+		<td width="150" valign="top" bgcolor="#ECF9FF" class="bgleft" id="menu" style="height:100%">
+			<iframe id="innerMenuFrame" name="innerMenuFrame" width="150" style="height:100%" src="/zu/album/left.do?id=$!id" scrolling="auto" frameborder="0"></iframe>
+		</td>
+		<td valign="top" id="main">
+    		#if($contentURL)
+				#set($mainURL = $contentURL)
+			#else
+				#set($mainURL = '/zu/album/main.do')
+			#end
+			<script type="text/javascript">
+			var ie = navigator.appVersion.indexOf('MSIE') != -1;
+			if(ie){
+			document.write('<iframe src="$mainURL" name="content" frameborder="0" scrolling="yes" id="content" width="100%" height="100%"></iframe>');
+			}else{
+			document.write('<iframe src="$mainURL" name="content" frameborder="0" scrolling="auto" id="content" width="100%" height="100%"></iframe>');
+			}
+			</script>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

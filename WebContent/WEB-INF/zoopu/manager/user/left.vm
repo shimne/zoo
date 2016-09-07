@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link rel="stylesheet" type="text/css" href="/zoopu/css/common.css" />
+<script type="text/javascript" src="/zoopu/js/mootools.js"></script>
+<script type="text/javascript">
+function _go(url, tabName, btnId, tabNumber, btnClass)
+{
+	var mainFrameURL = parent.mainFrame.location.href;
+
+	if (mainFrameURL.substring(mainFrameURL.length - url.length) != url)
+	{
+		parent.mainFrame.location.href = url;
+
+		for (i = 0; i < tabNumber; i++)
+		{
+			$(tabName + '_btn' + i).className = '';
+		}
+
+		$(tabName + '_btn' + btnId).className = btnClass;
+	}
+}
+</script>
+</head>
+
+<body class="bgleft" style="overflow:hidden;">
+<table width="149" border="0" cellspacing="0" cellpadding="0" height="32">
+	<tr>
+		<td height="32" background="/zoopu/images/lbg3.jpg" class="ltitle" style="padding-left:18px;"> <img src="/zoopu/images/7.gif" width="16" height="16" align="absbottom" class="mr5">系统管理 </td>
+	</tr>
+</table>
+<div id="divmenu" style="width:150px;overflow-x:hidden;overflow:auto;">
+	<div class="simpleLeftMenu">
+		<a href="javascript:void(0);" id="left_btn0" onClick="_go('/zu/admin/add.do','left',0,2,'current')"><span>新增管理员</span></a>
+		<a href="javascript:void(0);" id="left_btn1" onClick="_go('/zu/admin/list.do','left',1,2,'current')"><span>管理员列表</span></a> 
+	</div>
+</div>
+</body>
+</html>

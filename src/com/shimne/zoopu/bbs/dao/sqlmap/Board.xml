@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.bbs.dao.BoardDao">
+
+	<insert id="save" parameterType="Board">
+		INSERT INTO ZOOPU_BOARD
+		(
+			id, parentId, name, icon, description, topicNum, replyNum, lastTopicId, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{parentId}, #{name}, #{icon}, #{description}, #{topicNum}, #{replyNum}, #{lastTopicId}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_BOARD LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Board">
+		UPDATE ZOOPU_BOARD 
+		SET
+			name = #{name},
+			icon = #{icon},
+			description = #{description},
+			topicNum = #{topicNum},
+			replyNum = #{replyNum},
+			lastTopicId = #{lastTopicId},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultType="Board">
+		SELECT * FROM ZOOPU_BOARD WHERE id = #{value}
+	</select>
+
+	<select id="findByName" parameterType="string" resultType="Board">
+		SELECT * FROM ZOOPU_BOARD WHERE name = #{value}
+	</select>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_BOARD WHERE id = #{value}
+	</delete>
+
+	<select id="queryByParentId" parameterType="long" resultType="Board">
+		SELECT * FROM ZOOPU_BOARD WHERE parentId = #{value} ORDER BY id ASC
+	</select>
+
+	<select id="queryAll" resultType="Board">
+		SELECT * FROM ZOOPU_BOARD ORDER BY id ASC
+	</select>
+
+	<select id="count" parameterType="map" resultType="Integer">
+		SELECT COUNT(1) FROM ZOOPU_BOARD
+		<where>
+			<if test="parentId != null and parentId > 0">
+				parentId = #{parentId}
+			</if>
+			<if test="name != null and name != ''">
+				name like #{name}
+			</if>
+		</where>
+	</select>
+
+	<select id="query" parameterType="map" resultType="Board">
+		SELECT * FROM ZOOPU_BOARD
+		<where>
+			<if test="parentId != null and parentId > 0">
+				parentId = #{parentId}
+			</if>
+			<if test="name != null and name != ''">
+				name like #{name}
+			</if>
+		</where>
+		ORDER BY name #{order}
+		LIMIT #{start}, #{max}
+	</select>
+</mapper>

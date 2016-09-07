@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+	<link href="/zoopu/css/common.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="mlbg">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" background="/zoopu/images/mtbg.jpg">
+	<tr>
+		<td width="92%">
+			<img src="/zoopu/images/8.gif" width="12" height="12" align="absmiddle" class="mr5" />
+			<strong>用户列表</strong>
+		</td>
+		<td width="8%" align="right">
+			<img src="/zoopu/images/mtr.jpg" width="97" height="32" />
+		</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="mb5">
+	<tr>
+		<td width="100%">&nbsp;</td>
+		<td width="100%" colspan="2">
+			<form name="form1" method="post" action="/zu/admin/list.do">
+				<table border="0" align="right" cellpadding="0" cellspacing="5">
+					<tr>
+						<td align="right" nowrap="nowrap">
+							姓名：<input type="text" name="name" size="10"/>
+						</td>
+						<td>
+							<input type="submit" class="buttonBg" value="查询"/>
+						</td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tableList">
+    <tr>
+        <th width="50" height="26" align="center">
+            <strong>编号</strong>
+        </th>
+        <th width="100" align="left">
+            <strong>用户名</strong>
+        </th>
+        <th width="100" align="left">
+            <strong>姓名</strong>
+        </th>
+        <th width="60" align="left">
+            <strong>性别</strong>
+        </th>
+        <th width="100" align="left">
+            <strong>电话</strong>
+        </th>
+        <th width="100" align="left">
+            <strong>手机</strong>
+        </th>
+        <th align="left">
+            <strong>邮箱</strong>
+        </th>
+        <th width="120" align="left">
+            <strong>创建时间</strong>
+        </th>
+        <th width="120" align="left">
+            <strong>修改时间</strong>
+        </th>
+        <th width="80" align="left">
+            <strong>系统管理员</strong>
+        </th>
+        <th width="60" align="left">
+            <strong>状态</strong>
+        </th>
+        <th width="100" align="left">
+            <strong style="padding-left:26px;">操作</strong>
+        </th>
+    </tr>
+    #foreach(${admin} in ${map.datas})
+	<tr onMouseOver="this.style.backgroundColor='#ECF9FF'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+		<td height="30" align="center">$!{admin.id}</td>
+		<td>&nbsp;$!{admin.username}</td>
+		<td>&nbsp;$!{admin.name}</td>
+		<td>&nbsp;$!{admin.sex}</td>
+		<td>&nbsp;$!{admin.phone}</td>
+		<td>&nbsp;$!{admin.mobile}</td>
+		<td>&nbsp;$!{admin.email}</td>
+		<td>&nbsp;$!{admin.createTime1}</td>
+		<td>&nbsp;$!{admin.lastAccess1}</td>
+		<td>
+		#if($!{admin.administrator})
+			是
+		#else
+			否
+		#end
+		</td>
+		<td>
+		#if($!{admin.disable})
+			<span class="red">禁用</span>
+		#else
+			正常
+		#end
+		</td>
+		<td>
+			<a href="/zu/admin/edit.do?id=$!{admin.id}">编辑</a>
+		#if($!{admin.disable})
+			<a href="/zu/admin/enable.do?id=$!{admin.id}">启用</a>
+		#else
+			<a href="/zu/admin/disable.do?id=$!{admin.id}" class="red">禁用</a>
+		#end
+		</td>
+	</tr>
+    #end
+</table>
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" class="ml3">
+    <tr>
+        <td align="right" nowrap> $!{map.pageContents}&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

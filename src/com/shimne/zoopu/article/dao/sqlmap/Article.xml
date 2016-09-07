@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.article.dao.ArticleDao">
+
+	<insert id="save" parameterType="Article">
+		INSERT INTO ZOOPU_ARTICLE
+		(
+			id, channelId, title, subTitle, keywords, content, summary, author, source,
+			outUrl, icon, articleTime, top, status, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{channelId}, #{title}, #{subTitle}, #{keywords}, #{content}, #{summary}, #{author}, #{source},
+			#{outUrl}, #{icon}, #{articleTime}, #{top}, #{status}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_ARTICLE LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Article">
+		UPDATE ZOOPU_ARTICLE 
+		SET
+			channelId = #{channelId},
+			title = #{title},
+			subTitle = #{subTitle},
+			keywords = #{keywords},
+			content = #{content},
+			summary = #{summary},
+			author = #{author},
+			source = #{source},
+			outUrl = #{outUrl},
+			icon = #{icon},
+			articleTime = #{articleTime},
+			status = #{status},
+			top = #{top},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultType="Article">
+		SELECT * FROM ZOOPU_ARTICLE WHERE id = #{value}
+	</select>
+
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM ZOOPU_ARTICLE WHERE id = #{value}
+	</delete>
+
+	<select id="count" parameterType="map" resultType="Integer">
+		SELECT COUNT(1) FROM ZOOPU_ARTICLE 
+		<where>
+			<if test="channelId != null and channelId > 0">
+				AND channelId = #{channelId}
+			</if>
+			<if test="creatorId != null and creatorId > 0">
+				AND creatorId = #{creatorId}
+			</if>
+			<if test="title != null and title != ''">
+				AND title = #{title}
+			</if>
+			<if test="status != null and status > 0">
+				AND status = #{status}
+			</if>
+			<if test="startTime != null">
+			    <![CDATA[ AND createTime > #{startTime} ]]>
+			</if>
+			<if test="endTime != null">
+			    <![CDATA[ AND createTime < #{endTime} ]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="query" parameterType="map" resultType="Article">
+		SELECT * FROM ZOOPU_ARTICLE
+		<where>
+			<if test="channelId != null and channelId != ''">
+				AND channelId = #{channelId}
+			</if>
+			<if test="title != null and title != ''">
+				AND title = #{title}
+			</if>
+			<if test="status != null and status > 0">
+				AND status = #{status}
+			</if>
+			<if test="startTime != null">
+			    <![CDATA[ AND createTime > #{startTime} ]]>
+			</if>
+			<if test="endTime != null">
+			    <![CDATA[ AND createTime < #{endTime} ]]>
+			</if>
+		</where>
+		ORDER BY top DESC, articleTime DESC
+		<if test="max != null and max > 0">
+			LIMIT #{start}, #{max}
+		</if>
+	</select>
+</mapper>

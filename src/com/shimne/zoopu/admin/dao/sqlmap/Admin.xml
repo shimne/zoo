@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shimne.zoopu.admin.dao.AdminDao">
+
+	<insert id="save" parameterType="Admin">
+		INSERT INTO ZOOPU_ADMIN
+		(
+			id, username, password, name, sex, phone, mobile, email, departmentId,
+			administrator, disable, creatorId, createTime, updaterId, updateTime
+		)
+		VALUES
+		(
+			#{id}, #{username}, #{password}, #{name}, #{sex}, #{phone}, #{mobile}, #{email}, #{departmentId}, 
+			#{administrator}, #{disable}, #{creatorId}, #{createTime}, #{updaterId}, #{updateTime}
+		)
+
+		<selectKey resultType="long" keyProperty="id">
+			SELECT last_insert_id() AS id FROM ZOOPU_ADMIN LIMIT 1
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Admin">
+		UPDATE ZOOPU_ADMIN 
+		SET
+			password = #{password},
+			name = #{name},
+			sex = #{sex},
+			phone = #{phone},
+			mobile = #{mobile},
+			email = #{email},
+			departmentId = #{departmentId},
+			administrator = #{administrator},
+			disable = #{disable},
+			updaterId = #{updaterId},
+			updateTime = #{updateTime}
+		WHERE
+			id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultType="Admin">
+		SELECT * FROM ZOOPU_ADMIN WHERE id = #{value}
+	</select>
+
+	<select id="findByUsername" parameterType="string" resultType="Admin">
+		SELECT * FROM ZOOPU_ADMIN WHERE username = #{value}
+	</select>
+
+	<select id="count" parameterType="map" resultType="Integer">
+		SELECT COUNT(1) FROM ZOOPU_ADMIN 
+		<where>
+			<if test="name != null and name != ''">
+				AND name LIKE #{name}
+			</if>
+			<if test="departmentId != null">
+				AND departmentId = #{departmentId}
+			</if>
+		</where>
+	</select>
+
+	<select id="query" parameterType="map" resultType="Admin">
+		SELECT * FROM ZOOPU_ADMIN
+		<where>
+			<if test="name != null and name != ''">
+				AND name LIKE #{name}
+			</if>
+			<if test="departmentId != null">
+				AND departmentId = #{departmentId}
+			</if>
+		</where>
+		ORDER BY id ASC 
+		<if test="max != null and max > 0">
+			LIMIT #{start}, #{max}
+		</if>
+	</select>
+
+	<insert id="saveAdminFucntion" parameterType="map">
+		INSERT INTO ZOOPU_ADMIN_FUNCTION
+			(adminId, functionId)
+		VALUES
+			(#{adminId}, #{functionId})
+	</insert>
+
+	<select id="queryFunctionIdsByAdminId" parameterType="long" resultType="long">
+		SELECT functionId FROM ZOOPU_ADMIN_FUNCTION WHERE adminId = #{value} ORDER BY functionId
+	</select>
+
+	<delete id="deleteAdminFunctionByAdminId" parameterType="long">
+		DELETE FROM ZOOPU_ADMIN_FUNCTION WHERE adminId = #{value}
+	</delete>
+
+	<delete id="deleteAdminFunctionByFunctionId" parameterType="long">
+		DELETE FROM ZOOPU_ADMIN_FUNCTION WHERE functionId = #{value}
+	</delete>
+</mapper>
